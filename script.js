@@ -92,7 +92,7 @@ const playlist=[
     })
     
     slideIn.addEventListener('click',()=>{
-        leftSection.style.transform='translateX(-100%)'
+        leftSection.style.transform='translateX(-150%)'
         leftSection.style.transition='0.1s all linear'
     })
 
