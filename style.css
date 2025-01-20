@@ -1,0 +1,151 @@
+*{
+    margin: 0%;
+    padding: 0%;
+}
+body{
+    background-color: black;
+    color: white;
+    font-family: "Changa", serif;
+    display: flex;
+}
+
+.section-left{
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 1px 3px 10px white;
+    height: 100vh;
+    color: black;
+    background:url('./media/mountains.jpg'),rgba(255, 255, 255, 0.582);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-blend-mode: color-dodge;
+}
+.section-right{
+    height: 100vh;
+    right: 0;
+    position: relative;
+    overflow-y: scroll;
+    width: 80%;
+}
+.playbar{
+    position: fixed;
+    display: none;
+    bottom: 0%;
+    width: 80%;    
+    background-color:rgb(205, 69, 20);
+    padding: 20px;
+}
+.search-bar{
+    display: flex;
+    border: 1px solid white;
+    width: 70%;
+    padding: 5px 10px;
+    border-radius: 30px;
+    box-shadow: 2px 2px 5px white;
+}
+.search-bar input{
+    background-color: transparent;
+    width: 100%;
+    border: none;
+    outline: none;
+    color: white;
+}
+.shadow-sign{
+    box-shadow: 2px 2px 5px white;
+}
+    
+.btn-container img:hover{
+cursor: pointer;
+}
+.card-nasheed{
+    cursor: pointer;
+}
+.img-artist{
+    width: 90%;
+    margin-bottom: 20px;
+    height: 200px;
+    object-fit: cover;
+    object-position:    top;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+.btn-container{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+.menu{
+    padding: 0%;
+}
+.menu li{
+    list-style: none;
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.1s all linear;
+}
+.divider{
+    width: 50px;
+    height: 3px;
+    background-color: orangered;
+}
+.menu li:hover{
+    background-color: rgba(255, 255, 255, 0.733);
+}
+.astronaut-animation{
+    animation: astronaut 2s linear infinite alternate;
+}
+@keyframes astronaut {
+    0%{
+        transform: translateY(10px);
+    }
+    100%{
+        transform: translateY(-20px);
+    }
+}
+.nav-sm{
+    display: none;
+}
+.slide-in{
+    display: none;
+}
+/* Media Queries */
+@media (max-width:576px) {
+    .img-artist{
+        width: 100%;
+    }
+    .slide-in{
+        display: block;
+        margin: 10px 20px;
+        font-size: 20px;
+        background-color: transparent;
+        border: none;
+    }
+    .nav-lg-md{
+        display: none;
+    }
+    .section-right{
+        width: 100%;
+    }
+    .section-left{
+        width: 300px !important;
+        transform: translateX(-150%);
+        position: fixed;
+        z-index: 10;
+    }
+    .playbar{
+        width: 100%;
+    }
+    .nav-sm{
+        display: flex;
+        padding: 30px;
+        color: white;
+    }
+    .toggle-menu-btn{
+        background-color: transparent;
+        color: white;
+        border: none;
+        font-size: 20px;
+    }
+}
