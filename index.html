@@ -73,14 +73,15 @@
       </div>
       <div class="playbar">
         <div class="btn-container">
-          <img src="./media/previous.svg" alt="">
-          <img src="./media/play.svg" alt="">
-          <img src="./media/next.svg" alt="">
+          <img src="./media/previous.svg" alt="" id="previous">
+          <img src="./media/pause.svg" id="play"  alt="">
+          <img src="./media/next.svg" alt="" id="next">
         </div>
        <div class="d-flex justify-content-between">
-        <div class="nasheed-info">jj</div>
-        <div id="nasheed-time"></div>
+         <div><span  id="nasheed-totaltime"></span>s</div>
+         <div><span id="nasheed-second">0</span>s</div>
        </div>
+      <input type="range" class="w-100" min="0" value="0" id="track">
       </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

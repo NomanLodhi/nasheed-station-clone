@@ -38,7 +38,11 @@ const playlist=[
     ]
   
     const listingNaseeds=()=>{
+        let currentNasheed= new Audio()
         let playlistContainer=document.getElementById('playlist-container')
+        let togglePlayPause=document.getElementById('play')
+        let next=document.getElementById('next')
+        let previous=document.getElementById('previous')
         playlist.forEach((nasheed)=>{
             let col=document.createElement('div') 
             let card=document.createElement('div') 
@@ -58,21 +62,48 @@ const playlist=[
             card.append(img)
             card.append(p)
             card.append(url)
+
+            
+            
       
             let clickPlay=document.querySelectorAll('.card-nasheed');
-            let nasheedTime=document.getElementById('nasheed-time')
+            let nasheedSecond=document.getElementById('nasheed-second')
+            let nasheedTotaltime=document.getElementById('nasheed-totaltime')
             let playBar=document.querySelector('.playbar')
+            let track=document.getElementById('track')
            clickPlay.forEach((click)=>{
             click.addEventListener('click',(e)=>{
+                
                 playBar.style.display='block'
                 e.preventDefault()
-                
-                let Play= new Audio(e.currentTarget.children[2].textContent)
-                Play.addEventListener('loadedmetadata',()=>{
-                    Play.play() 
-                    nasheedTime.innerHTML=Play.duration.toFixed(0)
-                    console.log(Play.duration)
+                togglePlayPause.src='http://127.0.0.1:5500/media/pause.svg'
+                currentNasheed.src=e.currentTarget.children[2].textContent
+                currentNasheed.addEventListener('loadedmetadata',()=>{
+                    currentNasheed.play() 
+                    track.setAttribute('max',currentNasheed.duration.toFixed(0))
+                    setInterval(() => {
+                        nasheedSecond.innerHTML=currentNasheed.currentTime.toFixed(0)
+                        track.value=currentNasheed.currentTime.toFixed(0)
+                    }, 1000);
+                    nasheedTotaltime.innerHTML=currentNasheed.duration.toFixed(0)
+                    togglePlayPause.addEventListener('click',(e)=>{
+                        if(currentNasheed.paused ){
+                            currentNasheed.play()
+                            
+                            e.currentTarget.src='http://127.0.0.1:5500/media/pause.svg'
+                        }
+                        else if(currentNasheed.played){
+                            currentNasheed.pause()
+                            e.currentTarget.src='http://127.0.0.1:5500/media/play.svg'
+                        }
+                     })
                 })
+
+                
+                 
+                
+
+                    
                 
                
             })
