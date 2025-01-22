@@ -37,81 +37,91 @@ const playlist=[
     }
     ]
   
-    const listingNaseeds=()=>{
-        let currentNasheed= new Audio()
-        let playlistContainer=document.getElementById('playlist-container')
-        let togglePlayPause=document.getElementById('play')
-        let next=document.getElementById('next')
-        let previous=document.getElementById('previous')
-        playlist.forEach((nasheed)=>{
-            let col=document.createElement('div') 
-            let card=document.createElement('div') 
-            let img=document.createElement('img') 
-            let p=document.createElement('p')
-            let url=document.createElement('p')
-            img.setAttribute('src',nasheed.image)
-            img.setAttribute('class','rounded-3')
-            img.setAttribute('class','img-artist')
-            p.innerText=nasheed.name
-            url.innerText=nasheed.nasheed
-            url.setAttribute('class','d-none')
-            card.setAttribute('class','card-nasheed')
-            col.setAttribute('class','col-lg-4 col-md-6')
-            playlistContainer.append(col)
-            col.append(card)
-            card.append(img)
-            card.append(p)
-            card.append(url)
+    
+    let currentNasheed;
+    let currentIndex = 0; 
 
-            
-            
-      
-            let clickPlay=document.querySelectorAll('.card-nasheed');
-            let nasheedSecond=document.getElementById('nasheed-second')
-            let nasheedTotaltime=document.getElementById('nasheed-totaltime')
-            let playBar=document.querySelector('.playbar')
-            let track=document.getElementById('track')
-           clickPlay.forEach((click)=>{
-            click.addEventListener('click',(e)=>{
-                
-                playBar.style.display='block'
-                e.preventDefault()
-                togglePlayPause.src='http://127.0.0.1:5500/media/pause.svg'
-                currentNasheed.src=e.currentTarget.children[2].textContent
-                currentNasheed.addEventListener('loadedmetadata',()=>{
-                    currentNasheed.play() 
-                    track.setAttribute('max',currentNasheed.duration.toFixed(0))
-                    setInterval(() => {
-                        nasheedSecond.innerHTML=currentNasheed.currentTime.toFixed(0)
-                        track.value=currentNasheed.currentTime.toFixed(0)
-                    }, 1000);
-                    nasheedTotaltime.innerHTML=currentNasheed.duration.toFixed(0)
-                    togglePlayPause.addEventListener('click',(e)=>{
-                        if(currentNasheed.paused ){
-                            currentNasheed.play()
-                            
-                            e.currentTarget.src='http://127.0.0.1:5500/media/pause.svg'
-                        }
-                        else if(currentNasheed.played){
-                            currentNasheed.pause()
-                            e.currentTarget.src='http://127.0.0.1:5500/media/play.svg'
-                        }
-                     })
-                })
+const listingNaseeds = () => {
+    let playlistContainer = document.getElementById('playlist-container');
+    let togglePlayPause = document.getElementById('play');
+    let next = document.getElementById('next');
+    let previous = document.getElementById('previous');
+    
+    playlist.forEach((nasheed, index) => {
+        currentNasheed = new Audio();
+        let col = document.createElement('div');
+        let card = document.createElement('div');
+        let img = document.createElement('img');
+        let p = document.createElement('p');
+        let url = document.createElement('p');
+        
+        img.setAttribute('src', nasheed.image);
+        img.setAttribute('class', 'rounded-3 img-artist');
+        p.innerText = nasheed.name;
+        url.innerText = nasheed.nasheed;
+        url.setAttribute('class', 'd-none');
+        
+        card.setAttribute('class', 'card-nasheed');
+        col.setAttribute('class', 'col-lg-4 col-md-6');
+        
+        playlistContainer.append(col);
+        col.append(card);
+        card.append(img);
+        card.append(p);
+        card.append(url);
 
-                
-                 
-                
+        card.addEventListener('click', () => {
+            currentIndex = index; 
+            playNasheed(nasheed);
+        });
+    });
 
-                    
-                
-               
-            })
-           })
-           
-        })
-    }
-    listingNaseeds()
+    const playNasheed = (nasheed) => {
+        let nasheedSecond = document.getElementById('nasheed-second');
+        let nasheedTotaltime = document.getElementById('nasheed-totaltime');
+        let playBar = document.querySelector('.playbar');
+        let track = document.getElementById('track');
+
+        playBar.style.display = 'block';
+        togglePlayPause.src = 'http://127.0.0.1:5500/media/pause.svg';
+        currentNasheed.src = nasheed.nasheed;
+        
+        currentNasheed.addEventListener('loadedmetadata', () => {
+            currentNasheed.play();
+            track.setAttribute('max', currentNasheed.duration.toFixed(0));
+
+            setInterval(() => {
+                nasheedSecond.innerHTML = currentNasheed.currentTime.toFixed(0);
+                track.value = currentNasheed.currentTime.toFixed(0);
+            }, 1000);
+
+            nasheedTotaltime.innerHTML = currentNasheed.duration.toFixed(0);
+
+            togglePlayPause.addEventListener('click', (e) => {
+                if (currentNasheed.paused) {
+                    currentNasheed.play();
+                    e.currentTarget.src = 'http://127.0.0.1:5500/media/pause.svg';
+                } else {
+                    currentNasheed.pause();
+                    e.currentTarget.src = 'http://127.0.0.1:5500/media/play.svg';
+                }
+            });
+        });
+    };
+
+    next.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % playlist.length;
+        playNasheed(playlist[currentIndex]);
+    });
+
+    previous.addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + playlist.length) % playlist.length;
+        playNasheed(playlist[currentIndex]);
+    });
+};
+
+listingNaseeds();
+
 
     let btnToggle=document.querySelector('.toggle-menu-btn')
     let leftSection=document.querySelector('.section-left')
@@ -126,7 +136,7 @@ const playlist=[
         leftSection.style.transform='translateX(-150%)'
         leftSection.style.transition='0.1s all linear'
     })
-
+   
     
     
     
